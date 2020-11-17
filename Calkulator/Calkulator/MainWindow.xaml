@@ -44,7 +44,7 @@
         <Button Grid.Row="5" Grid.Column="3" x:Name="btn_plus" Click="btn_operation_Click">+</Button>
         <Button Grid.Row="6" Grid.Column="3" x:Name="btn_Equal" Click="btn_Equal_Click">=</Button>
         <Button Grid.Row="7" Grid.Column="0" x:Name="btn_plusminus" Click="btn_plusminus_Click">+/-</Button>
-        <Button Grid.Row="7" Grid.Column="2" x:Name="btn_koma">,</Button>
+        <Button Grid.Row="7" Grid.Column="2" x:Name="btn_koma" Click="btn_koma_Click">,</Button>
 
         <Button Grid.Row="2" Grid.Column="0" x:Name="btn_C" Click="btn_C_Click">C</Button>
         <Button Grid.Row="2" Grid.Column="1" x:Name="btn_CE" Click="btn_CE_Click">CE</Button>
