@@ -1,60 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Calkulator
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         double num1;
         double num2;
         string op = "";
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-
         private void btn_num_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             string num = button.Content.ToString();
-
-            if (txtValue.Text == "0")
-                txtValue.Text = num;
-            else
-                txtValue.Text += num;
-
             if (op == "")
             {
+                if (txtValue.Text == "0")
+                    txtValue.Text = num;
+                else
+                    txtValue.Text += num;
                 num1 = Double.Parse(txtValue.Text);
             }
             else
             {
+                if (txtValue.Text == op)
+                    txtValue.Text = num;
+                else
+                    txtValue.Text += num;
                 num2 = Double.Parse(txtValue.Text);
+                txtValue.Text = num2.ToString();
             }
 
         }
 
-
         private void btn_operation_Click(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            string str = button.Content.ToString();
-            op = str;
+            op = button.Content.ToString();
             txtValue.Text = op;
         }
 
@@ -72,7 +54,7 @@ namespace Calkulator
                 case "avg": result = (num1 + num2) / 2; ; break;
                 case "x^y": result = Convert.ToInt32(Math.Pow(num1, num2)); break;
             }
-            txtValue.Text = result.ToString();
+            txtValue.Text = Math.Round(result,4).ToString();
             op = " ";
             num1 = result;
             num2 = 0;
@@ -112,42 +94,24 @@ namespace Calkulator
 
         private void btn_Backspase_Click(object sender, RoutedEventArgs e)
         {
-            txtValue.Text = DropLastChar(txtValue.Text);
-            if (op == "")
-            {
-                num1 = Double.Parse(txtValue.Text);
-            }
+            if (txtValue.Text.Length == 1)
+                txtValue.Text = "0";
             else
             {
-                num2 = Double.Parse(txtValue.Text);
-            }
-        }
-
-        private string DropLastChar(string text)
-        {
-            if (text.Length == 1) 
-                text = "0";
-            else
-            {
-                text = text.Remove(text.Length - 1, 1);
-                if (text [text.Length - 1] == ',')
+                txtValue.Text = txtValue.Text.Remove(txtValue.Text.Length - 1, 1);
+                if (txtValue.Text[txtValue.Text.Length - 1] == ',')
                 {
-                    text = text.Remove(text.Length - 1, 1);
+                    txtValue.Text = txtValue.Text.Remove(txtValue.Text.Length - 1, 1);
                 }
-                   
             }
-            return text;
+            if (op == "")
+                num1 = Double.Parse(txtValue.Text);
+            else
+                num1 = Double.Parse(txtValue.Text);
+
         }
 
         private void btn_koma_Click(object sender, RoutedEventArgs e)
-        {
-            if (op == "") 
-                SetKoma(num1);
-            else 
-                SetKoma(num2);
-        }
-
-        private void SetKoma(double num)
         {
             if (txtValue.Text.Contains(','))
                 return;
